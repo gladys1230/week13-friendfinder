@@ -2,7 +2,7 @@
 var express = require("express");
 //body-parser allows to receive info back in JSON form
 var bodyParser = require("body-parser");
-//var path = require("path");
+var path = require("path");
 
 var app = express();
 var PORT = process.env.PORT || 8080;

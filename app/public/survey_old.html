@@ -34,6 +34,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 2</h3>
         <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
         <select class="form-control" style="width:300px" id="2">
@@ -44,6 +45,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 3</h3>
         <h4>You find it easy to stay relaxed and focused even when tehre is some pressure.</h4>
         <select class="form-control" style="width:300px" id="3">
@@ -54,6 +56,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 4</h3>
         <h4>Your mind is always buzzing with unexplored idea and plans.</h4>
         <select class="form-control" style="width:300px" id="4">
@@ -64,6 +67,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 5</h3>
         <h4>People can rarely upset you.</h4>
         <select class="form-control" style="width:300px" id="5">
@@ -74,6 +78,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 6</h3>
         <h4>It is often difficult for you to relate to other people's feelings.</h4>
         <select class="form-control" style="width:300px" id="6">
@@ -84,6 +89,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 7</h3>
         <h4>In a discussion, truth should be ore important than people's sensitivities.</h4>
         <select class="form-control" style="width:300px" id="7">
@@ -94,6 +100,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 8</h3>
         <h4>You rarely get carried away by fantasies and ideas.</h4>
         <select class="form-control" style="width:300px" id="8">
@@ -104,6 +111,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 9</h3>
         <h4>You think that everyone's views should be respected regardless of whether they are supported by facts or not..</h4>
         <select class="form-control" style="width:300px" id="9">
@@ -114,6 +122,7 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <h3>Question 10</h3>
         <h4>Your feel more energetic after spending time with a group of people.</h4>
         <select class="form-control" style="width:300px" id="10">
@@ -124,56 +133,50 @@
             <option> 2 </option>
             <option> 1 </option>
         </select>
+
         <br>
+
         <button type="submit" class="btn btn-lg btn-primary submit">Submit</button>
         <div class="results-container"></div>
     </div>
 </body>
 
 </html>
+
 <script type="text/javascript">
-$(".submit").on("click", function() {
-    var newSurvey = {
-        name: $("#name").val().trim(),
-        image: $("#image").val().trim(),
-        scores: [parseInt($("#1 :selected").val()),
-            parseInt($("#2 :selected").val()),
-            parseInt($("#3 :selected").val()),
-            parseInt($("#4 :selected").val()),
-            parseInt($("#5 :selected").val()),
-            parseInt($("#6 :selected").val()),
-            parseInt($("#7 :selected").val()),
-            parseInt($("#8 :selected").val()),
-            parseInt($("#9 :selected").val()),
-            parseInt($("#10 :selected").val())
-        ]
 
+$(".submit").on("click", function(){
+  var newSurvey = {
+    name: $("#name").val().trim(),
+    image: $("#image").val().trim(),
+    scores: [$("#1 :selected").val(),
+             $("#2 :selected").val(),
+             $("#3 :selected").val(),
+             $("#4 :selected").val(),
+             $("#5 :selected").val(),
+             $("#6 :selected").val(),
+             $("#7 :selected").val(),
+             $("#8 :selected").val(),
+             $("#9 :selected").val(),
+             $("#10 :selected").val()
+           ]
+  };
+  console.log(newSurvey);
 
-    };
-    console.log(newSurvey);
+  var currentURL = window.location.origin;
 
-    var currentURL = window.location.origin;
+  $.post(currentURL + "/api/friends", newSurvey, function(data){
 
-    /*$.post(currentURL + "/api/friends", newSurvey, function(data) {
+    alert("You found a friend!");
+  });
 
-        alert("You found a friend!");
-    });*/
+  var friendsDiv = $("<div class = 'friendsDiv' style = 'width: 500px height: 500px'>");
 
-    $.ajax("/api/friends", {
-        data: JSON.stringify(newSurvey),
-        contentType: 'application/json',
-        type: 'POST'
+  friendsDiv.append(newSurvey);
 
-        alert("Hey, You found a damn friend!");
+  $(".results-container").append(newSurvey);
 
-    });
-
-    var friendsDiv = $("<div class = 'friendsDiv' style = 'width: 500px height: 500px'>");
-
-    friendsDiv.append(newSurvey);
-
-    $(".results-container").append(newSurvey);
-
-    return false;
+  return false;
 });
+
 </script>
